@@ -1,45 +1,34 @@
 using TodoList_NET.Extensions;
+using TodoList_NET.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. Configuración de Servicios
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDatabaseConfiguration();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+
+// Inyección de dependencias personalizadas
+builder.Services.AddDatabaseConfiguration();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// 2. Configuración del Pipeline HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>{
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoListNet API V1");
+        c.RoutePrefix = string.Empty; // Set Swagger UI at the root path
+    });
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.MapControllers();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
