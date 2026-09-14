@@ -1,0 +1,38 @@
+## --- ARCHIVOS SENSIBLES Y DE ENTORNO ---
+.env
+.env.*
+!.env.example
+appsettings.Development.json
+appsettings.Local.json
+
+## --- CARPETAS DE COMPILACIÓN Y SALIDA DE .NET ---
+bin/
+obj/
+out/
+publish/
+
+## --- ARCHIVOS Y CONFIGURACIÓN DE VS CODE ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## --- ARCHIVOS TEMPORALES Y DE CONFIGURACIÓN DE VISUAL STUDIO ---
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+
+## --- LOGS Y ARCHIVOS TEMPORALES DEL SISTEMA ---
+*.log
+*.tmp
+*.suo
+*.user
+*.cache
+
+## --- ARCHIVOS DE SITEMA OPERATIVO ---
+.DS_Store
+Thumbs.db
+desktop.ini
