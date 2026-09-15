@@ -1,4 +1,5 @@
 using TodoList_NET.Models.Categories;
+using TodoList_NET.Models.Tasks;
 
 // Defino el modelo de las subcategorias
 namespace TodoList_NET.Models.SubCategories;
@@ -14,4 +15,5 @@ public class SubCategory
     public DateTime? DeletedAt {get; set;} = null;
 
     public Category Category {get; set;} = new Category();
+    public ICollection<TaskUser> Tasks { get; set; } = new List<TaskUser>();
 }

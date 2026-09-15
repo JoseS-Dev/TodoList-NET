@@ -13,5 +13,4 @@ public class Category
     public DateTime? DeletedAt {get; set;} = null;
 
     public ICollection<SubCategory> SubCategories { get; set; } = new List<SubCategory>();
-    public ICollection<TaskUser> Tasks { get; set; } = new List<TaskUser>();
 }

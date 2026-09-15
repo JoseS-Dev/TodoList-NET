@@ -1,5 +1,5 @@
 using TodoList_NET.Models.Users;
-using TodoList_NET.Models.Categories;
+using TodoList_NET.Models.SubCategories;
 using TodoList_NET.Models.Enums;
 
 // Defino el modelo de las tareas del usuario
@@ -9,7 +9,7 @@ public class TaskUser
 {
     public int Id {get; set;}
     public int UserId {get; set;}
-    public int CategoryId {get; set;}
+    public int SubCategoryId {get; set;}
     public string TitleTask {get; set;} = string.Empty;
     public string? DescriptionTask {get; set;} = string.Empty;
     public DateTime? DueDate {get; set;} = null;
@@ -20,7 +20,7 @@ public class TaskUser
     public DateTime UpdatedAt {get; set;} = DateTime.Now;
     public DateTime? DeletedAt {get; set;} = null;
     public User User {get; set;} = new User();
-    public Category Category {get; set;} = new Category();
+    public SubCategory SubCategory {get; set;} = new SubCategory();
 
 
 }
