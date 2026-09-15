@@ -36,14 +36,14 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<DtoCategoryCreate>> CreateCategory(DtoCategoryCreate category)
+    public async Task<ActionResult<DtoCategoryResponse>> CreateCategory(DtoCategoryCreate category)
     {
         var createdCategory = await _categoryService.CreateCategoryAsync(category);
-        return CreatedAtAction(nameof(GetCategoryById), new { id = createdCategory.Id }, createdCategory);
+        return CreatedAtAction(nameof(GetCategoryById), createdCategory);
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<DtoCategoryUpdate?>> UpdateCategory(int id, DtoCategoryUpdate category)
+    public async Task<ActionResult<DtoCategoryResponse?>> UpdateCategory(int id, DtoCategoryUpdate category)
     {
         var updatedCategory = await _categoryService.UpdateCategoryAsync(id, category);
         if (updatedCategory == null)

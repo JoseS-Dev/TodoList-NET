@@ -34,16 +34,16 @@ public class UsersController : ControllerBase
         }
         return Ok(user);
     }
-
+    
     [HttpPost]
-    public async Task<ActionResult<DtoUserCreate>> CreateUser(DtoUserCreate user)
+    public async Task<ActionResult<DtoUserResponse>> CreateUser(DtoUserCreate user)
     {
         var createdUser = await _userService.CreateUserAsync(user);
-        return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
+        return CreatedAtAction(nameof(GetUserById), createdUser);
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<DtoUserUpdate?>> UpdateUser(int id, DtoUserUpdate user)
+    public async Task<ActionResult<DtoUserResponse?>> UpdateUser(int id, DtoUserUpdate user)
     {
         var updatedUser = await _userService.UpdateUserAsync(id, user);
         if (updatedUser == null)

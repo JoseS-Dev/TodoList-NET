@@ -38,7 +38,7 @@ public class UserService : IUserService{
     }
 
     // Método para crear un nuevo usuario
-    public async Task<DtoUserCreate> CreateUserAsync(DtoUserCreate user)
+    public async Task<DtoUserResponse> CreateUserAsync(DtoUserCreate user)
     {
         // Se valida que no exista un usuario con el mismo email o username
         if(await _context.Users.AnyAsync(u => u.Email == user.Email || u.Username == user.Username))
@@ -57,11 +57,19 @@ public class UserService : IUserService{
         };
         _context.Users.Add(newUser);
         await _context.SaveChangesAsync();
-        return user;
+        
+        return new DtoUserResponse
+        {
+            Id = newUser.Id,
+            FirstName = newUser.FirstName,
+            LastName = newUser.LastName,
+            Username = newUser.Username,
+            Email = newUser.Email
+        };
     }
 
     // Método para actualizar un usuario
-    public async Task<DtoUserUpdate?> UpdateUserAsync(int id, DtoUserUpdate user)
+    public async Task<DtoUserResponse?> UpdateUserAsync(int id, DtoUserUpdate user)
     {
         var existingUser = await _context.Users.FindAsync(id);
         if (existingUser == null)
@@ -85,7 +93,14 @@ public class UserService : IUserService{
         }
         existingUser.UpdatedAt = DateTime.Now;
         await _context.SaveChangesAsync();
-        return user;
+        return new DtoUserResponse
+        {
+            Id = existingUser.Id,
+            FirstName = existingUser.FirstName,
+            LastName = existingUser.LastName,
+            Username = existingUser.Username,
+            Email = existingUser.Email
+        };
     }
 
     // Método para eliminar un usuario
@@ -96,7 +111,7 @@ public class UserService : IUserService{
         {
             return false;
         }
-        _context.Users.Remove(existingUser);
+        existingUser.DeletedAt = DateTime.Now;
         await _context.SaveChangesAsync();
         return true;
     }

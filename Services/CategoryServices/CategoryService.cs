@@ -36,7 +36,7 @@ public class CategoryService : ICategoryService
     }
 
     // Método para crear una nueva categoria
-    public async Task<DtoCategoryCreate> CreateCategoryAsync(DtoCategoryCreate category)
+    public async Task<DtoCategoryResponse> CreateCategoryAsync(DtoCategoryCreate category)
     {
         // Se valida que no exista una categoria con el mismo nombre
         if(await _context.Categories.AnyAsync(c => c.NameCategory == category.NameCategory))
@@ -51,11 +51,17 @@ public class CategoryService : ICategoryService
         };
         _context.Categories.Add(newCategory);
         await _context.SaveChangesAsync();
-        return category;
+        var categoryResponse = new DtoCategoryResponse
+        {
+            Id = newCategory.Id,
+            NameCategory = newCategory.NameCategory,
+            DescriptionCategory = newCategory.DescriptionCategory
+        };
+        return categoryResponse;
     }
 
     // Método para actualizar una categoria
-    public async Task<DtoCategoryUpdate?> UpdateCategoryAsync(int id, DtoCategoryUpdate category)
+    public async Task<DtoCategoryResponse?> UpdateCategoryAsync(int id, DtoCategoryUpdate category)
     {
         var existingCategory = await _context.Categories.FindAsync(id);
         if (existingCategory == null)
@@ -72,7 +78,13 @@ public class CategoryService : ICategoryService
         existingCategory.DescriptionCategory = category.DescriptionCategory ?? existingCategory.DescriptionCategory;
         existingCategory.UpdatedAt = DateTime.Now;
         await _context.SaveChangesAsync();
-        return category;
+        var categoryResponse = new DtoCategoryResponse
+        {
+            Id = existingCategory.Id,
+            NameCategory = existingCategory.NameCategory,
+            DescriptionCategory = existingCategory.DescriptionCategory
+        };
+        return categoryResponse;
     }
 
     // Método para eliminar una categoria
@@ -83,7 +95,7 @@ public class CategoryService : ICategoryService
         {
             return false;
         }
-        _context.Categories.Remove(existingCategory);
+        existingCategory.DeletedAt = DateTime.Now;
         await _context.SaveChangesAsync();
         return true;
     }
