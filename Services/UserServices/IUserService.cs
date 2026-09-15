@@ -6,7 +6,7 @@ namespace TodoList_NET.Services.UserServices;
 
 public interface IUserService
 {
-    Task<List<User>> GetAllUsersAsync();
+    Task<List<User>> GetAllUsersAsync(DtoParam param);
     Task<User?> GetUserByIdAsync(int id);
     Task<DtoUserCreate> CreateUserAsync(DtoUserCreate user);
     Task<DtoUserUpdate?> UpdateUserAsync(int id, DtoUserUpdate user);

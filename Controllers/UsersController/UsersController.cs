@@ -16,9 +16,11 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<User>>> GetAllUsers()
+    public async Task<ActionResult<List<User>>> GetAllUsers(
+        [FromQuery] DtoParam param
+    )
     {
-        var users = await _userService.GetAllUsersAsync();
+        var users = await _userService.GetAllUsersAsync(param);
         return Ok(users);
     }
 

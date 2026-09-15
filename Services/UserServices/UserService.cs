@@ -16,9 +16,19 @@ public class UserService : IUserService{
     }
 
     // Método para obtener todos los usuarios
-    public async Task<List<User>> GetAllUsersAsync()
+    public async Task<List<User>> GetAllUsersAsync(DtoParam param)
     {
-        return await _context.Users.ToListAsync();
+        var query = _context.Users.AsQueryable();
+
+        // Si se proporciona un parámetro de búsqueda, se filtran los usuarios por nombre, apellido, username o email
+        if (!string.IsNullOrEmpty(param.Search))
+        {
+            query = query.Where(u => u.FirstName.Contains(param.Search) || u.LastName.Contains(param.Search) || u.Username.Contains(param.Search) || u.Email.Contains(param.Search));
+        }
+
+        // Se aplica la paginación
+        var users = await query.Skip((param.Page - 1) * param.Limit).Take(param.Limit).ToListAsync();
+        return users;
     }
 
     // Método para obtener un usuario por su id
