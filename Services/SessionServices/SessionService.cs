@@ -106,7 +106,7 @@ public class SessionService : ISessionService
 
         // Desactivo la sesión
         existingSession.IsActive = false;
-        existingSession.UpdatedAt = DateTime.Now;
+        existingSession.UpdatedAt = DateTime.UtcNow;
         _context.Sessions.Update(existingSession);
         await _context.SaveChangesAsync();
 

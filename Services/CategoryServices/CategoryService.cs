@@ -76,7 +76,7 @@ public class CategoryService : ICategoryService
         // Se actualizan los campos de la categoria
         existingCategory.NameCategory = category.NameCategory ?? existingCategory.NameCategory;
         existingCategory.DescriptionCategory = category.DescriptionCategory ?? existingCategory.DescriptionCategory;
-        existingCategory.UpdatedAt = DateTime.Now;
+        existingCategory.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         var categoryResponse = new DtoCategoryResponse
         {
@@ -95,7 +95,7 @@ public class CategoryService : ICategoryService
         {
             return false;
         }
-        existingCategory.DeletedAt = DateTime.Now;
+        existingCategory.DeletedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return true;
     }

@@ -91,7 +91,7 @@ public class UserService : IUserService{
             string passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
             existingUser.Password = passwordHash;
         }
-        existingUser.UpdatedAt = DateTime.Now;
+        existingUser.UpdatedAt = DateTime.UtcNow;;
         await _context.SaveChangesAsync();
         return new DtoUserResponse
         {
@@ -111,7 +111,7 @@ public class UserService : IUserService{
         {
             return false;
         }
-        existingUser.DeletedAt = DateTime.Now;
+        existingUser.DeletedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return true;
     }

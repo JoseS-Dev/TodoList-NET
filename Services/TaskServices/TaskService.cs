@@ -144,7 +144,7 @@ public class TaskService : ITaskService
         existingTask.TitleTask = task.TitleTask ?? existingTask.TitleTask;
         existingTask.DescriptionTask = task.DescriptionTask ?? existingTask.DescriptionTask;
         existingTask.DueDate = task.DueDate ?? existingTask.DueDate;
-        existingTask.UpdatedAt = DateTime.Now;
+        existingTask.UpdatedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return new DtoTaskResponse
         {
@@ -199,7 +199,7 @@ public class TaskService : ITaskService
         {
             return false;
         }
-        existingTask.DeletedAt = DateTime.Now;
+        existingTask.DeletedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return true;
     } 

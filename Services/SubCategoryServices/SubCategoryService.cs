@@ -121,7 +121,7 @@ public class SubCategoryService : ISubCategoryService
         existingSubCategory.CategoryId = subCategory.CategoryId;
         existingSubCategory.NameSubCategory = subCategory.NameSubCategory!;
         existingSubCategory.DescriptionSubCategory = subCategory.DescriptionSubCategory!;
-        existingSubCategory.UpdatedAt = DateTime.Now;
+        existingSubCategory.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
         return new DtoSubCategoryResponse
@@ -142,7 +142,7 @@ public class SubCategoryService : ISubCategoryService
             return false;
         }
         // Se elimina la subcategoria
-        existingSubCategory.DeletedAt = DateTime.Now;
+        existingSubCategory.DeletedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return true;
     }

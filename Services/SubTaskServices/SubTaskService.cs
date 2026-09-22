@@ -105,7 +105,7 @@ public class SubTaskService : ISubTaskService
         existingSubTask.TitleSubTask = subTask.TitleSubTask ?? existingSubTask.TitleSubTask;
         existingSubTask.DescriptionSubTask = subTask.DescriptionSubTask ?? existingSubTask.DescriptionSubTask;
         existingSubTask.DueDate = subTask.DueDate ?? existingSubTask.DueDate;
-        existingSubTask.UpdatedAt = DateTime.Now;
+        existingSubTask.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
         return new DtoSubTaskResponse
@@ -132,14 +132,14 @@ public class SubTaskService : ISubTaskService
         // Si el estado a actualizar es "Completada", se actauliza la fecha de completado con la fecha actual
         if(dtoSubTaskUpdateStatus.Status == StatuTask.Completada)
         {
-            existingSubTask.CompletedDate = DateTime.Now;
+            existingSubTask.CompletedDate = DateTime.UtcNow;
         }
         else if(dtoSubTaskUpdateStatus.Status == StatuTask.Cancelada)
         {
             existingSubTask.ReasonCancel = dtoSubTaskUpdateStatus.ReasonCancel;
         }
         existingSubTask.Status = dtoSubTaskUpdateStatus.Status;
-        existingSubTask.UpdatedAt = DateTime.Now;
+        existingSubTask.UpdatedAt = DateTime.UtcNow;
 
         await _context.SaveChangesAsync();
         return new DtoSubTaskResponse
@@ -163,7 +163,7 @@ public class SubTaskService : ISubTaskService
         {
             return false;
         }
-        existingSubTask.DeletedAt = DateTime.Now;
+        existingSubTask.DeletedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
         return true;
     }
