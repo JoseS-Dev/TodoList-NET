@@ -39,7 +39,7 @@ public class CategoriesController : ControllerBase
     public async Task<ActionResult<DtoCategoryResponse>> CreateCategory(DtoCategoryCreate category)
     {
         var createdCategory = await _categoryService.CreateCategoryAsync(category);
-        return CreatedAtAction(nameof(GetCategoryById), createdCategory);
+        return CreatedAtAction(nameof(GetCategoryById), new { id = createdCategory.Id }, createdCategory);
     }
 
     [HttpPatch("{id}")]

@@ -51,7 +51,7 @@ public class TasksController : ControllerBase
     public async Task<ActionResult<DtoTaskResponse>> CreateTask(DtoTaskCreate task)
     {
         var createdTask = await _taskService.CreateTaskAsync(task);
-        return CreatedAtAction(nameof(GetTaskById), createdTask);
+        return CreatedAtAction(nameof(GetTaskById), new { id = createdTask.Id }, createdTask);
     }
 
     [HttpPatch("{id}")]

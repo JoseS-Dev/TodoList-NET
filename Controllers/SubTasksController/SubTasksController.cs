@@ -44,7 +44,7 @@ public class SubTasksController : ControllerBase
     public async Task<ActionResult<DtoSubTaskResponse>> CreateSubTask(DtoSubTaskCreate subTask)
     {
         var createdSubTask = await _subTaskService.CreateSubTaskAsync(subTask);
-        return CreatedAtAction(nameof(GetSubTaskById), createdSubTask);
+        return CreatedAtAction(nameof(GetSubTaskById), new { id = createdSubTask.Id }, createdSubTask);
     }
 
     [HttpPatch("{id}")]

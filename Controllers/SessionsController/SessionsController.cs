@@ -27,6 +27,7 @@ public class SessionsController : ControllerBase
         return Ok(createdSession);
     }
 
+    [Authorize]
     [HttpPost("logout")]
     public async Task<ActionResult<string?>> LogoutSession()
     {

@@ -39,7 +39,7 @@ public class UsersController : ControllerBase
     public async Task<ActionResult<DtoUserResponse>> CreateUser(DtoUserCreate user)
     {
         var createdUser = await _userService.CreateUserAsync(user);
-        return CreatedAtAction(nameof(GetUserById), createdUser);
+        return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
     }
 
     [HttpPatch("{id}")]

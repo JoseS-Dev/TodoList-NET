@@ -46,7 +46,7 @@ public class SubCategoriesController : ControllerBase
     public async Task<ActionResult<DtoSubCategoryCreate>> CreateSubCategory(DtoSubCategoryCreate subCategory)
     {
         var createdSubCategory = await _subCategoryService.CreateSubCategoryAsync(subCategory);
-        return CreatedAtAction(nameof(GetSubCategoryById), createdSubCategory);
+        return CreatedAtAction(nameof(GetSubCategoryById), new { id = createdSubCategory.Id }, createdSubCategory);
     }
 
     [HttpPatch("{id}")]
