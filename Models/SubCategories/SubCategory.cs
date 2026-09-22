@@ -10,8 +10,8 @@ public class SubCategory
     public int CategoryId {get; set;}
     public string NameSubCategory {get; set;} = string.Empty;
     public string? DescriptionSubCategory {get; set;} = string.Empty;
-    public DateTime CreatedAt {get; set;} = DateTime.Now;
-    public DateTime UpdatedAt {get; set;} = DateTime.Now;
+    public DateTime CreatedAt {get; set;} = DateTime.UtcNow;
+    public DateTime UpdatedAt {get; set;} = DateTime.UtcNow;
     public DateTime? DeletedAt {get; set;} = null;
 
     public Category Category {get; set;} = new Category();

@@ -9,7 +9,7 @@ public class Session
     public int UserId {get; set;}
     public string Token {get; set;} = string.Empty;
     public bool IsActive {get; set;} = true;
-    public DateTime CreatedAt {get; set;} = DateTime.Now;
-    public DateTime UpdatedAt {get; set;} = DateTime.Now;
+    public DateTime CreatedAt {get; set;} = DateTime.UtcNow;
+    public DateTime UpdatedAt {get; set;} = DateTime.UtcNow;
     public User User {get; set;} = new User();
 }

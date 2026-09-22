@@ -13,8 +13,8 @@ public class SubTask
     public DateTime? CompletedDate {get; set;} = null;
     public StatuTask Status {get; set;} = StatuTask.Pendiente;
     public string? ReasonCancel {get; set;} = string.Empty;
-    public DateTime CreatedAt {get; set;} = DateTime.Now;
-    public DateTime UpdatedAt {get; set;} = DateTime.Now;
+    public DateTime CreatedAt {get; set;} = DateTime.UtcNow;
+    public DateTime UpdatedAt {get; set;} = DateTime.UtcNow;
     public DateTime? DeletedAt {get; set;} = null;
 
     public TaskUser TaskUser {get; set;} = new TaskUser();
